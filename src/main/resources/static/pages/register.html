@@ -1,0 +1,365 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>党群服务-注册</title>
+	
+		<link rel='stylesheet prefetch' href='static/css/login-default.css' >
+	<link rel="stylesheet" type="text/css" href="static/css/login-reset.css">
+	<link rel="stylesheet" type="text/css" href="static/css/login-styles.css">
+	
+	
+	
+	<!--<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>-->
+	<script type="text/javascript" src="static/js/jquery.min.js" th:src="@{static/js/jquery.min.js}" ></script>
+	<script src="static/js/jquery.easing.min.js" type="text/javascript"  th:src="@{static/js/jquery.easing.min.js}"></script>
+	<script type="text/javascript" src="static/js/jsAddress.js"th:src="@{static/js/jsAddress.js}" ></script>
+	
+	
+	
+
+	<!--[if IE]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<!--<header class="htmleaf-header">
+		<h1>分步式用户注册表单UI界面设计 <span>A Step By Step User Register Form </span></h1>
+		<div class="htmleaf-links">
+			<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+			<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/css3/ui-design/201509062532.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+		</div>
+	</header>-->
+	 <img src="static/img/logo.png" width="200px" height="200px" style="position:relative;left: 1320px;"/> 
+	<article class="htmleaf-content2" style="position:relative;top: -200px;">
+		<!-- multistep form -->
+		<form action="register" method="post" id="msform">
+			<!-- progressbar -->
+			<ul id="progressbar">
+				<li class="active">角色选择</li>
+				<li>基本信息</li>
+				<li>位置信息</li>
+			</ul>
+			<!-- fieldsets -->
+			<fieldset>
+				<h2 class="fs-title">创建您的账号</h2>
+				<h3 class="fs-subtitle">选择您的角色</h3>
+				 <label class="radio">
+                <input type="radio" id="jiaose" name="role" value="0" checked >
+                <i class="icon-radio"></i>
+                               群众
+            </label>
+            <br>
+            <label class="radio">
+                <input type="radio" id="jiaose" name="role" value="1" >
+                <i class="icon-radio"></i>
+                                党员
+            </label>
+            <br>
+             <label class="radio">
+                <input type="radio" id="jiaose" name="role"value="2">
+                <i class="icon-radio"></i>
+                              街道
+            </label> 
+
+            <br>
+                <input type="button" onclick="location.href='toindex'" class="previous action-button"  value="返回登录" />
+				<input type="button" name="next" class="next action-button" value="下一步" />
+			   
+			</fieldset>
+			<fieldset>
+				<h2 class="fs-title">填写基本信息</h2>
+				<h3 class="fs-subtitle">请根据选定角色填写正确的信息</h3>
+				<input type="text" id="name" name="username" placeholder="姓名" />
+				<input type="text" id="telephone" name="telephone" placeholder="手机号" />
+				<input type="password" name="password" id="password" placeholder="密码" />
+				<input type="password"  id="password2" placeholder="确认密码" />
+				<input type="button" name="previous" class="previous action-button" value="上一步" />
+				<input type="button" name="next" class="next action-button" id="next2" value="下一步" />
+			</fieldset>
+			<fieldset>
+				<h2 class="fs-title">填写位置信息</h2>
+				<h3 class="fs-subtitle">请根据具体所在地区进行填写</h3>
+			  
+                    <select id="cmbProvince" name="province"></select>
+                    <select id="cmbCity"  name="city"></select>
+                    <select id="cmbArea" name="district"></select>
+                 <br />
+                                  <nobr id="wenzi" style="font-size: 16px;" >所属街道/村：</nobr>     
+                   <select id="xuanze" name="areaname">
+                    	 <option>暂无</option>
+                    	<!--<option>2</option> -->
+                    </select>
+                    <br /> 
+				<input type="button" name="previous" class="previous action-button" value="上一步" />
+			
+				<input type="submit" name="submit" id="submit" class="submit action-button" value="注册" /> 
+			</fieldset>
+		</form>
+	</article>
+	
+<!--设置地区默认值-->
+<script type="text/javascript">
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea', '北京', '市辖区', '东城区');
+
+</script>
+<!--按next-->
+	<script>
+	
+	//第二页的验证
+	//第二页的验证标识
+    var flag = true;
+	//验证重复tele
+	
+		
+		//验证名字非空
+		function checkname(){
+			
+			var name = $('#name').val();
+			if (name=='') 
+				return false;
+			else
+			     return true;
+		}
+		//验证电话/单位编号的长度，电话11位，单位编号9位。
+		function checktelephone(){
+			
+			var telephone = $('#telephone').val();
+			var jiaose = $('#jiaose:checked').val();
+			   if(jiaose==2){
+			   	if(telephone.length==9)
+			   	  return true;
+			   	 else
+			   	  return false;
+			   }
+			   else{
+			   		if(telephone.length==11)
+			   	  return true;
+			   	 else
+			   	  return false;
+			   }
+		}
+		//验证密码的长度在6-13之间
+		function checkpwd(){
+			
+			var password = $('#password').val();
+			if (password.length<6||password.length>13)
+				return false;
+			else
+			     return true;
+		}
+		//验证确认密码是否与密码相同
+		function checkrpwd(){
+			
+			var password = $('#password').val();
+			var password2 = $('#password2').val();
+			if (password!=password2)
+				return false;
+			else
+			     return true;
+		}
+		//点击第二页的next按钮后触发验证
+		 	$('#next2').click(function(){
+			  flag=true;//将flag重置为true
+			var  jiaose = $('#jiaose:checked').val();
+			if(checkname()==false){
+				flag = false;
+				if(jiaose==2)
+				 alert("街道/村名称不能为空！");
+				else
+				  alert("姓名不能为空");
+			}
+			
+			if(checktelephone()==false&& flag==true){
+				flag = false;
+				if(jiaose==2)
+				 alert("单位编号为9位，请正确填写！");
+				else
+				 alert("仅支持大陆11位手机号，请正确填写！");
+			}
+			if(checkpwd()==false&& flag==true){
+				flag = false;
+				alert("密码长度应为6-13，请正确填写！");
+			}
+			if(checkrpwd()==false&& flag==true){
+				flag = false;
+				alert("两次输入的密码不一致，请正确填写！");
+			}
+			//电话或编号相同监测
+			if(flag==true){
+				 var telephone = $('#telephone').val();
+			     var pararms ={'telephone':telephone};
+			    	$.ajax({
+						url:'chadianhua',
+						type:'post',
+						async:false,//设置同步/异步的参数[true异步  false同步
+						contentType:'application/json;charset=UTF-8',//request请求的类型是json类型,字符编码是utf-8
+						data:JSON.stringify(pararms),//将json对象转换成字符串,再向后台传递
+						success:function(e){//e变量就是后台返回的Map对象
+							  	if(e.flag == "1"){
+								 flag = true;
+								}else{
+							     flag = false;
+								}
+						},
+						error:function(e){
+							console.log(e);
+						}
+					});
+			  if(flag ==false){
+				if(jiaose==2)
+				 alert("该单位编号已经注册！");
+				else
+				 alert("该手机号已经注册！");
+			}
+			  }
+			return  flag;
+		})
+		
+		/*按上一步*/
+	$('.previous').click(function () {
+	   flag=true;//将flag重置为true
+	   if (animating)
+	        return false;
+	    animating = true;
+	    current_fs = $(this).parent();
+	    previous_fs = $(this).parent().prev();
+	    $('#progressbar li').eq($('fieldset').index(current_fs)).removeClass('active');
+	    previous_fs.show();
+	    current_fs.animate({ opacity: 0 }, {
+	        step: function (now, mx) {
+	            scale = 0.8 + (1 - now) * 0.2;
+	            left = (1 - now) * 50 + '%';
+	            opacity = 1 - now;
+	            current_fs.css({ 'left': left });
+	            previous_fs.css({
+	                'transform': 'scale(' + scale + ')',
+	                'opacity': opacity
+	            });
+	        },
+	        duration: 800,
+	        complete: function () {
+	            current_fs.hide();
+	            animating = false;
+	        },
+	        easing: 'easeInOutBack'
+	    });
+	});
+	
+		
+//按next		
+	var current_fs, next_fs, previous_fs;
+	var left, opacity, scale;
+	var animating;
+	$('.next').click(function () {
+	   if(flag==true){//第二页的验证为true
+	    if (animating)
+	        return false;
+	    animating = true;
+	    current_fs = $(this).parent();
+	    next_fs = $(this).parent().next();
+	    $('#progressbar li').eq($('fieldset').index(next_fs)).addClass('active');
+	    next_fs.show();
+	    current_fs.animate({ opacity: 0 }, {
+	        step: function (now, mx) {
+	            scale = 1 - (1 - now) * 0.2;
+	            left = now * 50 + '%';
+	            opacity = 1 - now;
+	            current_fs.css({ 'transform': 'scale(' + scale + ')' });
+	            next_fs.css({
+	                'left': left,
+	                'opacity': opacity
+	            });
+	        },
+	        duration: 800,
+	        complete: function () {
+	            current_fs.hide();
+	            animating = false;
+	        },
+	        easing: 'easeInOutBack'
+	    });
+	    
+	    
+	    //通过角色改变第二页placeholder
+	    var jiaose = $('#jiaose:checked').val();
+	    //alert(jiaose);
+	    if(jiaose==2)
+	       //alert(jiaose);
+	       {
+	       	$('#name').attr('placeholder','街道/村名称')
+	        $('#telephone').attr('placeholder','单位编号')
+	        $('#wenzi').hide()
+	        $('#xuanze').hide()
+	       }
+	       else
+	       {
+	       	$('#name').attr('placeholder','姓名')
+	        $('#telephone').attr('placeholder','手机号')
+	        $('#wenzi').show()
+	        $('#xuanze').show()
+	       	
+	       }
+	  
+	   }
+	    
+	});
+	
+	
+
+	</script>
+	<script>
+
+	$(function(){
+		var html = '<option selected="selected" value="">请选择街道/村</option>';   // 设置默认值
+		$('#cmbArea').change(function(){
+			    	//alert(111);
+			        var province = $('#cmbProvince').val();
+			    	//alert(province);
+			    	var city = $('#cmbCity').val();
+			    	var district =  $('#cmbArea').val();
+			       //封装信息到params
+			    	var pararms ={'province':province,'city':city,'district':district};
+			    	$.ajax({
+						url:'chajiedao',
+						type:'post',
+						contentType:'application/json;charset=UTF-8',//request请求的类型是json类型,字符编码是utf-8
+						data:JSON.stringify(pararms),//将json对象转换成字符串,再向后台传递
+						success:function(e){//e变量就是后台返回的Map对象
+							   let areaname = e.areaname;   //  获取到数组
+							     for(let list in areaname){     //  遍历数组
+							    html += '<option value="' + areaname[list] + '">' + areaname[list] + '</option>';
+							            }
+							  $("#xuanze").html(html);  //  将拼接好的字符串绑定到页面
+						},
+						error:function(e){
+							console.log(e);
+						}
+					});
+				})		
+	})
+	
+	//验证地区非空
+		function checkarea(){
+			
+			var xuanze = $('#xuanze').val();
+			if (xuanze=='') 
+				return false;
+			else
+			     return true;
+		}
+	//提交时验证地区是否填写
+	$('#submit').click(function(){
+		var flag2 = true;//将flag2初始化为true
+		var  jiaose = $('#jiaose:checked').val();
+		if(checkarea()==false && jiaose!=2){
+			flag2 = false;
+			alert("请填写地区信息");
+		}
+		return  flag2;
+	})
+	</script>
+</body>
+</html>

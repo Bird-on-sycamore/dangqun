@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.dangqun01.dao.userMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.dangqun01.entity.user" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="imgParh" property="imgparh" jdbcType="VARCHAR" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="REAL" />
+    <result column="locatedId" property="locatedid" jdbcType="INTEGER" />
+    <result column="back01" property="back01" jdbcType="INTEGER" />
+    <result column="back02" property="back02" jdbcType="INTEGER" />
+    <result column="back03" property="back03" jdbcType="VARCHAR" />
+    <result column="back04" property="back04" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, role, password, username, telephone, description, imgParh, career, company, point, 
+    locatedId, back01, back02, back03, back04
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.dangqun01.entity.userExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.dangqun01.entity.userExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.dangqun01.entity.user" >
+    insert into user (id, role, password, 
+      username, telephone, description, 
+      imgParh, career, company, 
+      point, locatedId, back01, 
+      back02, back03, back04
+      )
+    values (#{id,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{imgparh,jdbcType=VARCHAR}, #{career,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{point,jdbcType=REAL}, #{locatedid,jdbcType=INTEGER}, #{back01,jdbcType=INTEGER}, 
+      #{back02,jdbcType=INTEGER}, #{back03,jdbcType=VARCHAR}, #{back04,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.dangqun01.entity.user" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="imgparh != null" >
+        imgParh,
+      </if>
+      <if test="career != null" >
+        career,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="locatedid != null" >
+        locatedId,
+      </if>
+      <if test="back01 != null" >
+        back01,
+      </if>
+      <if test="back02 != null" >
+        back02,
+      </if>
+      <if test="back03 != null" >
+        back03,
+      </if>
+      <if test="back04 != null" >
+        back04,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgparh != null" >
+        #{imgparh,jdbcType=VARCHAR},
+      </if>
+      <if test="career != null" >
+        #{career,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=REAL},
+      </if>
+      <if test="locatedid != null" >
+        #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        #{back04,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.dangqun01.entity.userExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgparh != null" >
+        imgParh = #{record.imgparh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.career != null" >
+        career = #{record.career,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=REAL},
+      </if>
+      <if test="record.locatedid != null" >
+        locatedId = #{record.locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="record.back01 != null" >
+        back01 = #{record.back01,jdbcType=INTEGER},
+      </if>
+      <if test="record.back02 != null" >
+        back02 = #{record.back02,jdbcType=INTEGER},
+      </if>
+      <if test="record.back03 != null" >
+        back03 = #{record.back03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back04 != null" >
+        back04 = #{record.back04,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=INTEGER},
+      password = #{record.password,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      imgParh = #{record.imgparh,jdbcType=VARCHAR},
+      career = #{record.career,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=REAL},
+      locatedId = #{record.locatedid,jdbcType=INTEGER},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.dangqun01.entity.user" >
+    update user
+    <set >
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgparh != null" >
+        imgParh = #{imgparh,jdbcType=VARCHAR},
+      </if>
+      <if test="career != null" >
+        career = #{career,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=REAL},
+      </if>
+      <if test="locatedid != null" >
+        locatedId = #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        back01 = #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        back02 = #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        back03 = #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        back04 = #{back04,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.dangqun01.entity.user" >
+    update user
+    set role = #{role,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      imgParh = #{imgparh,jdbcType=VARCHAR},
+      career = #{career,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      point = #{point,jdbcType=REAL},
+      locatedId = #{locatedid,jdbcType=INTEGER},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- demo 不实际使用，不要误调 -->
+    <insert id="addUser">
+  	insert into user (username,password) values (#{username},#{password})
+  </insert>
+  <!-- 登录 -->
+  <select id="selectByTelephone" resultMap="BaseResultMap">
+    select * from user where telephone= #{telephone}
+  </select>
+  <!-- 注册 -->
+   <insert id="addNewUser">
+  	insert into user (username,password,role,telephone,locatedId) values (#{username},#{password},#{role},#{telephone},#{locatedid})
+  </insert>
+  <!-- 街道获取该地区党员榜单 -->
+  <select id="selectdangyuanbang" resultMap="BaseResultMap">
+    select * 
+    from user 
+    where role = 1
+          and  locatedId = #{locatedid,jdbcType=INTEGER}
+    order by point desc limit 8
+  </select>
+  
+  
+  
+</mapper>

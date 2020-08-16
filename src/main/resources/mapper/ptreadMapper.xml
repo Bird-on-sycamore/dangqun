@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.dangqun01.dao.ptreadMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.dangqun01.entity.ptread" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="articalid" property="articalid" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="back01" property="back01" jdbcType="INTEGER" />
+    <result column="back02" property="back02" jdbcType="INTEGER" />
+    <result column="back03" property="back03" jdbcType="VARCHAR" />
+    <result column="back04" property="back04" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userid, articalid, date, back01, back02, back03, back04
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.dangqun01.entity.ptreadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ptread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ptread
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ptread
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.dangqun01.entity.ptreadExample" >
+    delete from ptread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.dangqun01.entity.ptread" >
+    insert into ptread (id, userid, articalid, 
+      date, back01, back02, 
+      back03, back04)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{articalid,jdbcType=INTEGER}, 
+      #{date,jdbcType=DATE}, #{back01,jdbcType=INTEGER}, #{back02,jdbcType=INTEGER}, 
+      #{back03,jdbcType=VARCHAR}, #{back04,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.dangqun01.entity.ptread" >
+    insert into ptread
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="articalid != null" >
+        articalid,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="back01 != null" >
+        back01,
+      </if>
+      <if test="back02 != null" >
+        back02,
+      </if>
+      <if test="back03 != null" >
+        back03,
+      </if>
+      <if test="back04 != null" >
+        back04,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="articalid != null" >
+        #{articalid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="back01 != null" >
+        #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        #{back04,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.dangqun01.entity.ptreadExample" resultType="java.lang.Integer" >
+    select count(*) from ptread
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ptread
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.articalid != null" >
+        articalid = #{record.articalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.back01 != null" >
+        back01 = #{record.back01,jdbcType=INTEGER},
+      </if>
+      <if test="record.back02 != null" >
+        back02 = #{record.back02,jdbcType=INTEGER},
+      </if>
+      <if test="record.back03 != null" >
+        back03 = #{record.back03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back04 != null" >
+        back04 = #{record.back04,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ptread
+    set id = #{record.id,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      articalid = #{record.articalid,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=DATE},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.dangqun01.entity.ptread" >
+    update ptread
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="articalid != null" >
+        articalid = #{articalid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="back01 != null" >
+        back01 = #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        back02 = #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        back03 = #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        back04 = #{back04,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.dangqun01.entity.ptread" >
+    update ptread
+    set userid = #{userid,jdbcType=INTEGER},
+      articalid = #{articalid,jdbcType=INTEGER},
+      date = #{date,jdbcType=DATE},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 搜索党员阅读文章记录 -->
+     <select id="getptread" resultMap="BaseResultMap" >
+    select *
+    from ptread
+    where userid = #{userid,jdbcType=INTEGER}
+      and articalid = #{articalid,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>

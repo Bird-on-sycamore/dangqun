@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.dangqun01.dao.adviceMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.dangqun01.entity.advice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="locatedId" property="locatedid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="imgPath" property="imgpath" jdbcType="VARCHAR" />
+    <result column="stime" property="stime" jdbcType="TIMESTAMP" />
+    <result column="rptime" property="rptime" jdbcType="TIMESTAMP" />
+    <result column="back01" property="back01" jdbcType="INTEGER" />
+    <result column="back02" property="back02" jdbcType="INTEGER" />
+    <result column="back03" property="back03" jdbcType="VARCHAR" />
+    <result column="back04" property="back04" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.neuedu.dangqun01.entity.adviceWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="reply" property="reply" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userId, locatedId, name, imgPath, stime, rptime, back01, back02, back03, back04
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, reply
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.neuedu.dangqun01.entity.adviceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from advice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.dangqun01.entity.adviceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from advice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from advice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from advice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.dangqun01.entity.adviceExample" >
+    delete from advice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.dangqun01.entity.adviceWithBLOBs" >
+    insert into advice (id, userId, locatedId, 
+      name, imgPath, stime, 
+      rptime, back01, back02, 
+      back03, back04, content, 
+      reply)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{locatedid,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, #{stime,jdbcType=TIMESTAMP}, 
+      #{rptime,jdbcType=TIMESTAMP}, #{back01,jdbcType=INTEGER}, #{back02,jdbcType=INTEGER}, 
+      #{back03,jdbcType=VARCHAR}, #{back04,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{reply,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.dangqun01.entity.adviceWithBLOBs" >
+    insert into advice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="locatedid != null" >
+        locatedId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="imgpath != null" >
+        imgPath,
+      </if>
+      <if test="stime != null" >
+        stime,
+      </if>
+      <if test="rptime != null" >
+        rptime,
+      </if>
+      <if test="back01 != null" >
+        back01,
+      </if>
+      <if test="back02 != null" >
+        back02,
+      </if>
+      <if test="back03 != null" >
+        back03,
+      </if>
+      <if test="back04 != null" >
+        back04,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="locatedid != null" >
+        #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null" >
+        #{stime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rptime != null" >
+        #{rptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="back01 != null" >
+        #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.dangqun01.entity.adviceExample" resultType="java.lang.Integer" >
+    select count(*) from advice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update advice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.locatedid != null" >
+        locatedId = #{record.locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgpath != null" >
+        imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stime != null" >
+        stime = #{record.stime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rptime != null" >
+        rptime = #{record.rptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.back01 != null" >
+        back01 = #{record.back01,jdbcType=INTEGER},
+      </if>
+      <if test="record.back02 != null" >
+        back02 = #{record.back02,jdbcType=INTEGER},
+      </if>
+      <if test="record.back03 != null" >
+        back03 = #{record.back03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back04 != null" >
+        back04 = #{record.back04,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.reply != null" >
+        reply = #{record.reply,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update advice
+    set id = #{record.id,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      locatedId = #{record.locatedid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      stime = #{record.stime,jdbcType=TIMESTAMP},
+      rptime = #{record.rptime,jdbcType=TIMESTAMP},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      reply = #{record.reply,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update advice
+    set id = #{record.id,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      locatedId = #{record.locatedid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      stime = #{record.stime,jdbcType=TIMESTAMP},
+      rptime = #{record.rptime,jdbcType=TIMESTAMP},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.dangqun01.entity.adviceWithBLOBs" >
+    update advice
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="locatedid != null" >
+        locatedId = #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        imgPath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null" >
+        stime = #{stime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rptime != null" >
+        rptime = #{rptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="back01 != null" >
+        back01 = #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        back02 = #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        back03 = #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        back04 = #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.neuedu.dangqun01.entity.adviceWithBLOBs" >
+    update advice
+    set userId = #{userid,jdbcType=INTEGER},
+      locatedId = #{locatedid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=TIMESTAMP},
+      rptime = #{rptime,jdbcType=TIMESTAMP},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      reply = #{reply,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.dangqun01.entity.advice" >
+    update advice
+    set userId = #{userid,jdbcType=INTEGER},
+      locatedId = #{locatedid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=TIMESTAMP},
+      rptime = #{rptime,jdbcType=TIMESTAMP},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <!-- 通过locatedid查 advice -->
+     <select id="getAdviceList" resultMap="BaseResultMap" >
+    select *
+    from advice
+    where locatedId = #{locatedid,jdbcType=INTEGER}
+  </select>
+  <!-- 通过id查建议（进jcad2） -->
+    <select id="selectAdviceById" resultMap="BaseResultMap" >
+    select *
+    from advice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <!-- 通过userid查 advice -->
+     <select id="getAdviceListByUser" resultMap="BaseResultMap" >
+    select *
+    from advice
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+   <!--新建建议 -->
+   <insert id="addNewAdvice">
+  	insert into advice (locatedId,userId,name,imgPath,back04) 
+  	values (#{locatedid},#{userid},#{name},#{imgpath},#{back04})
+  </insert>
+  
+  
+</mapper>

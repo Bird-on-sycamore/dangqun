@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.dangqun01.dao.articalMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.dangqun01.entity.artical" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="kind" property="kind" jdbcType="INTEGER" />
+    <result column="locatedId" property="locatedid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="checked" property="checked" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="imgPath" property="imgpath" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="back01" property="back01" jdbcType="INTEGER" />
+    <result column="back02" property="back02" jdbcType="INTEGER" />
+    <result column="back03" property="back03" jdbcType="VARCHAR" />
+    <result column="back04" property="back04" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.neuedu.dangqun01.entity.artical" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, kind, locatedId, title, date, checked, description, imgPath, point, back01, back02, 
+    back03, back04
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.neuedu.dangqun01.entity.articalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from artical
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.dangqun01.entity.articalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from artical
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from artical
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from artical
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.dangqun01.entity.articalExample" >
+    delete from artical
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.dangqun01.entity.artical" >
+    insert into artical (id, kind, locatedId, 
+      title, date, checked, 
+      description, imgPath, point, 
+      back01, back02, back03, 
+      back04, content)
+    values (#{id,jdbcType=INTEGER}, #{kind,jdbcType=INTEGER}, #{locatedid,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{checked,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, 
+      #{back01,jdbcType=INTEGER}, #{back02,jdbcType=INTEGER}, #{back03,jdbcType=VARCHAR}, 
+      #{back04,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.dangqun01.entity.artical" >
+    insert into artical
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+      <if test="locatedid != null" >
+        locatedId,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="checked != null" >
+        checked,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="imgpath != null" >
+        imgPath,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="back01 != null" >
+        back01,
+      </if>
+      <if test="back02 != null" >
+        back02,
+      </if>
+      <if test="back03 != null" >
+        back03,
+      </if>
+      <if test="back04 != null" >
+        back04,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="locatedid != null" >
+        #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="checked != null" >
+        #{checked,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.dangqun01.entity.articalExample" resultType="java.lang.Integer" >
+    select count(*) from artical
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update artical
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.kind != null" >
+        kind = #{record.kind,jdbcType=INTEGER},
+      </if>
+      <if test="record.locatedid != null" >
+        locatedId = #{record.locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.checked != null" >
+        checked = #{record.checked,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgpath != null" >
+        imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.back01 != null" >
+        back01 = #{record.back01,jdbcType=INTEGER},
+      </if>
+      <if test="record.back02 != null" >
+        back02 = #{record.back02,jdbcType=INTEGER},
+      </if>
+      <if test="record.back03 != null" >
+        back03 = #{record.back03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back04 != null" >
+        back04 = #{record.back04,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update artical
+    set id = #{record.id,jdbcType=INTEGER},
+      kind = #{record.kind,jdbcType=INTEGER},
+      locatedId = #{record.locatedid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=DATE},
+      checked = #{record.checked,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update artical
+    set id = #{record.id,jdbcType=INTEGER},
+      kind = #{record.kind,jdbcType=INTEGER},
+      locatedId = #{record.locatedid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=DATE},
+      checked = #{record.checked,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=INTEGER},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.dangqun01.entity.artical" >
+    update artical
+    <set >
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="locatedid != null" >
+        locatedId = #{locatedid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="checked != null" >
+        checked = #{checked,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        imgPath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        back01 = #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        back02 = #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        back03 = #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        back04 = #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.neuedu.dangqun01.entity.artical" >
+    update artical
+    set kind = #{kind,jdbcType=INTEGER},
+      locatedId = #{locatedid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      checked = #{checked,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.dangqun01.entity.artical" >
+    update artical
+    set kind = #{kind,jdbcType=INTEGER},
+      locatedId = #{locatedid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      checked = #{checked,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--新建新闻 -->
+   <insert id="addNewArtical">
+  	insert into artical (locatedId,title,kind,content,date,description,imgpath,point) values (#{locatedid},#{title},#{kind},#{content},#{date},#{description},#{imgpath},#{point})
+  </insert>
+   <!-- 通过locatedid查 artical -->
+     <select id="getArticalList" resultMap="BaseResultMap" >
+    select *
+    from artical
+    where locatedId = #{locatedid,jdbcType=INTEGER}
+  </select>
+  <!-- 通过id查找并修改(编辑) -->
+   <update id="updateArticalById" parameterType="com.neuedu.dangqun01.entity.artical" >
+    update artical
+    set  title = #{title,jdbcType=VARCHAR},
+         kind = #{kind,jdbcType=INTEGER},
+         description = #{description,jdbcType=VARCHAR},
+         imgPath = #{imgpath,jdbcType=VARCHAR},
+         point = #{point,jdbcType=INTEGER},
+         content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

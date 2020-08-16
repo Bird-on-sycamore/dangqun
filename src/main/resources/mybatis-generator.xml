@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!--连接mysql数据库的驱动 ，改location="自己工程下数据库的jar包"-->
+	<classPathEntry location="D:\Eclipse EE\dangqun01\src\main\resources\mysql-connector-java-5.1.6-bin.jar" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!--数据库的用户名，密码   改jdbcConnection="自己工程的数据库连接"-->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/dangqun?characterEncoding=utf8" userId="root" password="123456">
+		</jdbcConnection>
+		
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!--自动生成实体类的文件    ，改targetPackage="放置自动生成文件的目录"  -->
+		<javaModelGenerator targetPackage="com.neuedu.dangqun01.entity" targetProject="../java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		
+		<!--自动生成表的操作语句(映射文件)    ，改targetPackage="放置自动生成文件的目录"  -->
+		<sqlMapGenerator targetPackage="com.neuedu.dangqun01.dao" targetProject="../resources/mapper">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		
+		<!--自动生成dao接口     ，改targetPackage="放置自动生成的DAO文件的目录"  -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.neuedu.dangqun01.dao" targetProject="../java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<table tableName="ptdreamsolve" domainObjectName="ptdreamsolve"/>
+		<!-- <table tableName="ptread" domainObjectName="ptread"/> -->
+		<!-- <table tableName="user" domainObjectName="user"/>
+		<table tableName="activity" domainObjectName="activity"/>
+		<table tableName="advice" domainObjectName="advice"/>
+		<table tableName="artical" domainObjectName="artical"/>
+		<table tableName="dream" domainObjectName="dream"/>
+		<table tableName="located" domainObjectName="located"/>
+		<table tableName="partyattend" domainObjectName="partyattend"/>
+		<table tableName="ptdreamsolve" domainObjectName="ptdreamsolve"/> -->
+		<!-- 要新生成的数据库表，注意：已经生成成功的,一定要注释掉,否则会覆盖.我们只生成新表！ -->		
+         <!--  <table tableName="users" domainObjectName="Users"/> -->
+         <!--<table tableName="question" domainObjectName="Question"/>
+         <table tableName="question" domainObjectName="Question"/>
+         <table tableName="question" domainObjectName="Question"/>
+         <table tableName="question" domainObjectName="Question"/>
+         <table tableName="question" domainObjectName="Question"/> -->
+	</context>
+
+</generatorConfiguration>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.dangqun01.dao.dreamMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.dangqun01.entity.dream" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="useid" property="useid" jdbcType="INTEGER" />
+    <result column="located" property="located" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="imgPath" property="imgpath" jdbcType="VARCHAR" />
+    <result column="adopted" property="adopted" jdbcType="INTEGER" />
+    <result column="solved" property="solved" jdbcType="INTEGER" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="back01" property="back01" jdbcType="INTEGER" />
+    <result column="back02" property="back02" jdbcType="INTEGER" />
+    <result column="back03" property="back03" jdbcType="VARCHAR" />
+    <result column="back04" property="back04" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.neuedu.dangqun01.entity.dream" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, useid, located, name, imgPath, adopted, solved, point, back01, back02, back03, 
+    back04
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.neuedu.dangqun01.entity.dreamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dream
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.dangqun01.entity.dreamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dream
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dream
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dream
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.dangqun01.entity.dreamExample" >
+    delete from dream
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.dangqun01.entity.dream" >
+    insert into dream (id, useid, located, 
+      name, imgPath, adopted, 
+      solved, point, back01, 
+      back02, back03, back04, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{useid,jdbcType=INTEGER}, #{located,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, #{adopted,jdbcType=INTEGER}, 
+      #{solved,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, #{back01,jdbcType=INTEGER}, 
+      #{back02,jdbcType=INTEGER}, #{back03,jdbcType=VARCHAR}, #{back04,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.dangqun01.entity.dream" >
+    insert into dream
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="useid != null" >
+        useid,
+      </if>
+      <if test="located != null" >
+        located,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="imgpath != null" >
+        imgPath,
+      </if>
+      <if test="adopted != null" >
+        adopted,
+      </if>
+      <if test="solved != null" >
+        solved,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="back01 != null" >
+        back01,
+      </if>
+      <if test="back02 != null" >
+        back02,
+      </if>
+      <if test="back03 != null" >
+        back03,
+      </if>
+      <if test="back04 != null" >
+        back04,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="useid != null" >
+        #{useid,jdbcType=INTEGER},
+      </if>
+      <if test="located != null" >
+        #{located,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="adopted != null" >
+        #{adopted,jdbcType=INTEGER},
+      </if>
+      <if test="solved != null" >
+        #{solved,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.dangqun01.entity.dreamExample" resultType="java.lang.Integer" >
+    select count(*) from dream
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dream
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.useid != null" >
+        useid = #{record.useid,jdbcType=INTEGER},
+      </if>
+      <if test="record.located != null" >
+        located = #{record.located,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgpath != null" >
+        imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adopted != null" >
+        adopted = #{record.adopted,jdbcType=INTEGER},
+      </if>
+      <if test="record.solved != null" >
+        solved = #{record.solved,jdbcType=INTEGER},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=INTEGER},
+      </if>
+      <if test="record.back01 != null" >
+        back01 = #{record.back01,jdbcType=INTEGER},
+      </if>
+      <if test="record.back02 != null" >
+        back02 = #{record.back02,jdbcType=INTEGER},
+      </if>
+      <if test="record.back03 != null" >
+        back03 = #{record.back03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.back04 != null" >
+        back04 = #{record.back04,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dream
+    set id = #{record.id,jdbcType=INTEGER},
+      useid = #{record.useid,jdbcType=INTEGER},
+      located = #{record.located,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      adopted = #{record.adopted,jdbcType=INTEGER},
+      solved = #{record.solved,jdbcType=INTEGER},
+      point = #{record.point,jdbcType=INTEGER},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dream
+    set id = #{record.id,jdbcType=INTEGER},
+      useid = #{record.useid,jdbcType=INTEGER},
+      located = #{record.located,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      imgPath = #{record.imgpath,jdbcType=VARCHAR},
+      adopted = #{record.adopted,jdbcType=INTEGER},
+      solved = #{record.solved,jdbcType=INTEGER},
+      point = #{record.point,jdbcType=INTEGER},
+      back01 = #{record.back01,jdbcType=INTEGER},
+      back02 = #{record.back02,jdbcType=INTEGER},
+      back03 = #{record.back03,jdbcType=VARCHAR},
+      back04 = #{record.back04,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.dangqun01.entity.dream" >
+    update dream
+    <set >
+      <if test="useid != null" >
+        useid = #{useid,jdbcType=INTEGER},
+      </if>
+      <if test="located != null" >
+        located = #{located,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        imgPath = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="adopted != null" >
+        adopted = #{adopted,jdbcType=INTEGER},
+      </if>
+      <if test="solved != null" >
+        solved = #{solved,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="back01 != null" >
+        back01 = #{back01,jdbcType=INTEGER},
+      </if>
+      <if test="back02 != null" >
+        back02 = #{back02,jdbcType=INTEGER},
+      </if>
+      <if test="back03 != null" >
+        back03 = #{back03,jdbcType=VARCHAR},
+      </if>
+      <if test="back04 != null" >
+        back04 = #{back04,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.neuedu.dangqun01.entity.dream" >
+    update dream
+    set useid = #{useid,jdbcType=INTEGER},
+      located = #{located,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      adopted = #{adopted,jdbcType=INTEGER},
+      solved = #{solved,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.dangqun01.entity.dream" >
+    update dream
+    set useid = #{useid,jdbcType=INTEGER},
+      located = #{located,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      imgPath = #{imgpath,jdbcType=VARCHAR},
+      adopted = #{adopted,jdbcType=INTEGER},
+      solved = #{solved,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      back01 = #{back01,jdbcType=INTEGER},
+      back02 = #{back02,jdbcType=INTEGER},
+      back03 = #{back03,jdbcType=VARCHAR},
+      back04 = #{back04,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 通过locatedid查 dream -->
+    <select id="getDreamList" resultMap="BaseResultMap" >
+    select *
+    from dream
+    where located = #{located,jdbcType=INTEGER}
+    </select>
+  <!-- 通过useid查 dream -->
+    <select id="getDreamListByuseid" resultMap="BaseResultMap" >
+    select *
+    from dream
+    where useid = #{useid,jdbcType=INTEGER}
+    </select>
+  
+  
+  
+</mapper>
